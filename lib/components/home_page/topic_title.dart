@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn/utils/methods.dart';
 class TopicTitle extends StatelessWidget {
   final String topic;
   const TopicTitle({Key? key ,required this.topic}) : super(key: key);
@@ -26,6 +27,7 @@ class TopicTitle extends StatelessWidget {
       ),
       onTap: (){
          print(topic);
+         loadSession(context , topic);
       },
     );
   }

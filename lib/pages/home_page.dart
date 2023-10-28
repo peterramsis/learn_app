@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn/animations/fade_in_animations.dart';
 import 'package:learn/components/home_page/topic_title.dart';
 import 'package:learn/data/words.dart';
 
@@ -72,13 +73,13 @@ class _HomePageState extends State<HomePage> {
               flexibleSpace: FlexibleSpaceBar(
                 background: Padding(
                   padding: EdgeInsets.all(size.width * 0.10),
-                  child: Image.asset("assets/images/Dragon.png"),
+                  child: FadeInAnimation(child: Image.asset("assets/images/Dragon.png")),
                 ),
               ),
             ),
             SliverGrid(delegate: SliverChildBuilderDelegate(
               childCount: _topics.length,
-              (context, index) => TopicTitle(topic: _topics[index]),
+              (context, index) => FadeInAnimation(child: TopicTitle(topic: _topics[index])),
             ), gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 6,
