@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn/components/app/CustomAppBar.dart';
 import 'package:learn/notifiers/FlashcardNotifier.dart';
 import 'package:learn/pages/home_page.dart';
 import 'package:provider/provider.dart';
@@ -13,19 +14,15 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<FlashcardsNotifier>(builder: (_, notifier, __){
-      return Scaffold(
-        appBar: AppBar(
-          title: Hero(
-            tag: notifier.topic,
-            child: Text(notifier.topic),
-          ),
-          leading: Image.asset("assets/images/${notifier.topic}.png"),
-          actions: [
-            IconButton(onPressed: ()=>Navigator.of(context).pushAndRemoveUntil(  MaterialPageRoute(builder: (context)=> const HomePage()) , (route) => false), icon: const Icon(Icons.close))
-          ],
+      return const Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(56),
+          child: CustomAppBar(),
         ),
       );
     });
   }
+
+
 }
 
