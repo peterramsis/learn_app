@@ -19,13 +19,17 @@ class _CardOneState extends State<CardOne> {
       final size = MediaQuery.of(context).size;
       return HalfFlipAnimation(
         animate: notifier.flipCard1,
+        reset: notifier.resetFlipCard1,
         animationCompleted: (){
+          notifier.resetCard1();
           notifier.runFlipCardTwo();
         },
-        reset: false,
+
         flipFromHalfWay: false,
         child: SlideAnimation(
+          animate: notifier.slideCareOne,
           direction: SlideDirection.upIn,
+          reset: notifier.resetSlideCardOne,
           child: Center(
             child: Container(
               width: size.width * .90,

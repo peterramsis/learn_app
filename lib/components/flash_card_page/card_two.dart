@@ -17,21 +17,43 @@ class _CardTwoState extends State<CardTwo> {
   Widget build(BuildContext context) {
     return Consumer<FlashcardsNotifier>(builder: (_,notifier,__){
       final size = MediaQuery.of(context).size;
-      return HalfFlipAnimation(
-        animate: notifier.flipCard2,
-        animationCompleted: (){
+      return GestureDetector(
+        onHorizontalDragEnd: (details){
+          print("----$details");
+          if(details.primaryVelocity! > 100){
+              notifier.runSwipeCardTwo(direction: SlideDirection.leftAway);
+              notifier.runSlideCardOne();
+          }
+
+          if(details.primaryVelocity! < -100){
+            notifier.runSwipeCardTwo(direction: SlideDirection.rightAway);
+            notifier.runSlideCardOne();
+          }
+
 
         },
-        reset: false,
-        flipFromHalfWay: true,
-        child: SlideAnimation(
-          direction: SlideDirection.upIn,
-          child: Center(
-            child: Container(
-              width: size.width * .90,
-              height: size.height * .70,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor
+        child: HalfFlipAnimation(
+          animate: notifier.flipCard2,
+          reset: notifier.resetFlipCard2,
+          animationCompleted: (){
+
+          },
+
+          flipFromHalfWay: true,
+          child: SlideAnimation(
+            animationCompleted: () {
+              notifier.resetCard2();
+            },
+            direction: notifier.swipeDirection,
+            reset: notifier.resetSwipeCardTwo,
+            animate: notifier.swipeCardTwo,
+            child: Center(
+              child: Container(
+                width: size.width * .90,
+                height: size.height * .70,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor
+                ),
               ),
             ),
           ),

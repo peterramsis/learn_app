@@ -17,6 +17,17 @@ class FlashcardsPage extends StatefulWidget {
 }
 
 class _FlashcardsPageState extends State<FlashcardsPage> {
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final flashcardsNotifier =
+      Provider.of<FlashcardsNotifier>(context, listen: false);
+      flashcardsNotifier.runSlideCardOne();
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
