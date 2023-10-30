@@ -25,7 +25,7 @@ class _SlideAnimationState extends State<SlideAnimation>  with SingleTickerProvi
   @override
   initState() {
     _animationController = AnimationController(
-        duration: const Duration(milliseconds: 1000), vsync: this)..addListener(() {
+        duration: const Duration(milliseconds: 600), vsync: this)..addListener(() {
       if (_animationController.isCompleted) {
         widget.animationCompleted?.call();
       }

@@ -17,25 +17,33 @@ class _CardOneState extends State<CardOne> {
   Widget build(BuildContext context) {
     return Consumer<FlashcardsNotifier>(builder: (_,notifier,__){
       final size = MediaQuery.of(context).size;
-      return HalfFlipAnimation(
-        animate: notifier.flipCard1,
-        reset: notifier.resetFlipCard1,
-        animationCompleted: (){
-          notifier.resetCard1();
-          notifier.runFlipCardTwo();
+      return GestureDetector(
+        onDoubleTap: (){
+          notifier.runFlipCardOne();
+          notifier.setTouches(ignore: true);
         },
-
-        flipFromHalfWay: false,
-        child: SlideAnimation(
-          animate: notifier.slideCareOne,
-          direction: SlideDirection.upIn,
-          reset: notifier.resetSlideCardOne,
-          child: Center(
-            child: Container(
-              width: size.width * .90,
-              height: size.height * .70,
-              decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor
+        child: HalfFlipAnimation(
+          animate: notifier.flipCard1,
+          reset: notifier.resetFlipCard1,
+          animationCompleted: (){
+            notifier.resetCard1();
+            notifier.runFlipCardTwo();
+          },
+          flipFromHalfWay: false,
+          child: SlideAnimation(
+            animate: notifier.slideCareOne,
+            direction: SlideDirection.upIn,
+            reset: notifier.resetSlideCardOne,
+            animationCompleted: (){
+              notifier.setTouches(ignore: false);
+            },
+            child: Center(
+              child: Container(
+                width: size.width * .90,
+                height: size.height * .70,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor
+                ),
               ),
             ),
           ),

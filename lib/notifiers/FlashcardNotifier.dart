@@ -8,6 +8,7 @@ class FlashcardsNotifier extends ChangeNotifier{
   bool slideCareOne = false;
   SlideDirection swipeDirection = SlideDirection.none;
   bool swipeCardTwo = false;
+  bool ignoreTouches = true;
 
   bool resetSlideCardOne = false,
       resetFlipCard1 = false,
@@ -19,6 +20,10 @@ class FlashcardsNotifier extends ChangeNotifier{
     notifyListeners();
   }
 
+  setTouches({required bool ignore}){
+    ignoreTouches = ignore;
+    notifyListeners();
+  }
   resetCard1() {
     resetSlideCardOne = true;
     resetFlipCard1 = true;

@@ -37,11 +37,9 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
           preferredSize: Size.fromHeight(56),
           child: CustomAppBar(),
         ),
-        body: GestureDetector(
-          onDoubleTap: (){
-            notifier.runFlipCardOne();
-          },
-          child:const Stack(
+        body: IgnorePointer(
+          ignoring: notifier.ignoreTouches,
+          child: const Stack(
             children: [
               CardTwo(),
               CardOne()

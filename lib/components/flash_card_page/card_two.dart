@@ -23,11 +23,13 @@ class _CardTwoState extends State<CardTwo> {
           if(details.primaryVelocity! > 100){
               notifier.runSwipeCardTwo(direction: SlideDirection.leftAway);
               notifier.runSlideCardOne();
+              notifier.setTouches(ignore: true);
           }
 
           if(details.primaryVelocity! < -100){
             notifier.runSwipeCardTwo(direction: SlideDirection.rightAway);
             notifier.runSlideCardOne();
+            notifier.setTouches(ignore: true);
           }
 
 
@@ -36,7 +38,7 @@ class _CardTwoState extends State<CardTwo> {
           animate: notifier.flipCard2,
           reset: notifier.resetFlipCard2,
           animationCompleted: (){
-
+            notifier.setTouches(ignore: false);
           },
 
           flipFromHalfWay: true,
