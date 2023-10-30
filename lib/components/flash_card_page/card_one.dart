@@ -44,6 +44,32 @@ class _CardOneState extends State<CardOne> {
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor
                 ),
+                child: Column(
+                  children: [
+                    Expanded( flex: 4,child: Image.asset("assets/images/${notifier.word.english}.png")),
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: FittedBox(
+                          child: Text(notifier.word.character),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: FittedBox(
+                          child: Text(notifier.word.english),
+                        ),
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
             ),
           ),

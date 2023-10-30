@@ -1,8 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
+import 'package:learn/config/contstants.dart';
+import 'package:learn/data/words.dart';
 import 'package:learn/enum/slide_direction.dart';
+import 'package:learn/models/word.dart';
 
 class FlashcardsNotifier extends ChangeNotifier{
   String topic = "";
+
+  Word word = Word(topic: "", english: "", character: "", pinyin: "");
+  Word wordTwo = Word(topic: "", english: "", character: "", pinyin: "");
   bool flipCard1 = false;
   bool flipCard2 = false;
   bool slideCareOne = false;
@@ -14,6 +22,31 @@ class FlashcardsNotifier extends ChangeNotifier{
       resetFlipCard1 = false,
       resetFlipCard2 = false,
       resetSwipeCardTwo = false;
+
+  List<Word> selectedWords= [];
+
+
+  generateAllSelectedWords(){
+    selectedWords.clear();
+    selectedWords = words.where( (element) => element.topic == topic).toList();
+
+  }
+
+  generateCurrentWords(){
+   if(selectedWords.isNotEmpty){
+     final numbers =  Random().nextInt(selectedWords.length);
+     word = selectedWords[numbers];
+     selectedWords.removeAt(numbers);
+   }else{
+     print("all selected word empty");
+   }
+   
+   Future.delayed(Duration(microseconds: kSlideAwayDuration) , (){
+       wordTwo = word;
+   });
+  }
+
+  //animation card
 
   setTopic({required String topic}){
     this.topic = topic;

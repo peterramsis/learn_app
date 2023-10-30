@@ -24,12 +24,14 @@ class _CardTwoState extends State<CardTwo> {
               notifier.runSwipeCardTwo(direction: SlideDirection.leftAway);
               notifier.runSlideCardOne();
               notifier.setTouches(ignore: true);
+              notifier.generateCurrentWords();
           }
 
           if(details.primaryVelocity! < -100){
             notifier.runSwipeCardTwo(direction: SlideDirection.rightAway);
             notifier.runSlideCardOne();
             notifier.setTouches(ignore: true);
+            notifier.generateCurrentWords();
           }
 
 
@@ -56,6 +58,7 @@ class _CardTwoState extends State<CardTwo> {
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor
                 ),
+                child: Text(notifier.wordTwo.character),
               ),
             ),
           ),

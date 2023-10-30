@@ -24,6 +24,8 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
       final flashcardsNotifier =
       Provider.of<FlashcardsNotifier>(context, listen: false);
       flashcardsNotifier.runSlideCardOne();
+      flashcardsNotifier.generateAllSelectedWords();
+      flashcardsNotifier.generateCurrentWords();
     });
     super.initState();
   }
