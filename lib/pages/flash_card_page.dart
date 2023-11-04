@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:learn/animations/half_filp_animation.dart';
 import 'package:learn/animations/slide_animation.dart';
@@ -41,10 +43,10 @@ class _FlashcardsPageState extends State<FlashcardsPage> {
         ),
         body: IgnorePointer(
           ignoring: notifier.ignoreTouches,
-          child: const Stack(
+          child:  Stack(
             children: [
-              CardTwo(),
-              CardOne()
+              Transform(transform: Matrix4.rotationY(pi) , alignment: Alignment.center, child: const CardTwo()),
+              const CardOne()
             ],
           ),
         ),

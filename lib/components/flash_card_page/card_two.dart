@@ -1,6 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:learn/animations/half_filp_animation.dart';
 import 'package:learn/animations/slide_animation.dart';
+import 'package:learn/components/flash_card_page/CardDisplay.dart';
+import 'package:learn/config/contstants.dart';
 import 'package:learn/enum/slide_direction.dart';
 import 'package:learn/notifiers/FlashcardNotifier.dart';
 import 'package:provider/provider.dart';
@@ -56,9 +60,14 @@ class _CardTwoState extends State<CardTwo> {
                 width: size.width * .90,
                 height: size.height * .70,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor
+                    color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(kCircularBorderRadius),
+                  border: Border.all(
+                    color: Colors.white,
+                    width: kCardBorderRadius
+                  )
                 ),
-                child: Text(notifier.wordTwo.character),
+                child: const CardDisplay( isCardOne: false),
               ),
             ),
           ),

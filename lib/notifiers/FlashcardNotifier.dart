@@ -9,8 +9,8 @@ import 'package:learn/models/word.dart';
 class FlashcardsNotifier extends ChangeNotifier{
   String topic = "";
 
-  Word word = Word(topic: "", english: "", character: "", pinyin: "");
-  Word wordTwo = Word(topic: "", english: "", character: "", pinyin: "");
+  Word word = Word(topic: "", english: "Loading", character: "", pinyin: "");
+  Word wordTwo = Word(topic: "", english: "Loading", character: "", pinyin: "");
   bool flipCard1 = false;
   bool flipCard2 = false;
   bool slideCareOne = false;
@@ -41,7 +41,7 @@ class FlashcardsNotifier extends ChangeNotifier{
      print("all selected word empty");
    }
    
-   Future.delayed(Duration(microseconds: kSlideAwayDuration) , (){
+   Future.delayed(const Duration(microseconds: kSlideAwayDuration) , (){
        wordTwo = word;
    });
   }

@@ -5,13 +5,15 @@ import 'package:learn/config/contstants.dart';
 import 'package:learn/enum/slide_direction.dart';
 
 class SlideAnimation extends StatefulWidget {
-  const SlideAnimation({Key? key , required this.child , required this.direction , this.animationCompleted ,this.reset, this.animate = true}) : super(key: key);
+  const SlideAnimation({Key? key , required this.child , required this.direction ,this.animationDuration = kSlideAwayDuration,  this.animationDaly = 0 , this.animationCompleted ,this.reset, this.animate = true}) : super(key: key);
 
   final Widget child;
   final SlideDirection direction;
   final bool animate;
   final bool? reset;
   final VoidCallback? animationCompleted;
+  final int animationDaly;
+  final int animationDuration;
 
   @override
   State<SlideAnimation> createState() => _SlideAnimationState();
@@ -25,15 +27,13 @@ class _SlideAnimationState extends State<SlideAnimation>  with SingleTickerProvi
   @override
   initState() {
     _animationController = AnimationController(
-        duration: const Duration(milliseconds: 600), vsync: this)..addListener(() {
+        duration:  Duration(milliseconds: widget.animationDuration), vsync: this)..addListener(() {
       if (_animationController.isCompleted) {
         widget.animationCompleted?.call();
       }
     });
 
-    if(widget.animate){
-      _animationController.forward();
-    }
+
 
     super.initState();
   }
@@ -41,10 +41,21 @@ class _SlideAnimationState extends State<SlideAnimation>  with SingleTickerProvi
   @override
   void didUpdateWidget(covariant SlideAnimation oldWidget) {
 
+
     if (widget.reset == true) {
       _animationController.reset();
     }
     if(widget.animate){
+      if(widget.animationDaly > 0){
+        Future.delayed(Duration(microseconds: widget.animationDaly),(){
+          if(mounted){
+            _animationController.forward();
+          }
+
+        });
+      }else{
+        _animationController.forward();
+      }
       _animationController.forward();
     }
     super.didUpdateWidget(oldWidget);

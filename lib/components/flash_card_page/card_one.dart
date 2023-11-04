@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learn/animations/half_filp_animation.dart';
 import 'package:learn/animations/slide_animation.dart';
+import 'package:learn/components/flash_card_page/CardDisplay.dart';
+import 'package:learn/config/contstants.dart';
 import 'package:learn/enum/slide_direction.dart';
 import 'package:learn/notifiers/FlashcardNotifier.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +33,8 @@ class _CardOneState extends State<CardOne> {
           },
           flipFromHalfWay: false,
           child: SlideAnimation(
+            animationDuration: 600,
+            animationDaly: 600,
             animate: notifier.slideCareOne,
             direction: SlideDirection.upIn,
             reset: notifier.resetSlideCardOne,
@@ -42,33 +46,16 @@ class _CardOneState extends State<CardOne> {
                 width: size.width * .90,
                 height: size.height * .70,
                 decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(kCircularBorderRadius),
+                    border: Border.all(
+                        color: Colors.white,
+                        width: kCardBorderRadius
+                    )
                 ),
-                child: Column(
-                  children: [
-                    Expanded( flex: 4,child: Image.asset("assets/images/${notifier.word.english}.png")),
-                    Expanded(
-                      flex: 2,
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: FittedBox(
-                          child: Text(notifier.word.character),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: FittedBox(
-                          child: Text(notifier.word.english),
-                        ),
-                      ),
-                    ),
-
-                  ],
+                child: const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: CardDisplay( isCardOne: true),
                 ),
               ),
             ),
