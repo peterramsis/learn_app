@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:learn/components/flash_card_page/result_box.dart';
 import 'package:learn/config/contstants.dart';
 import 'package:learn/data/words.dart';
 import 'package:learn/enum/slide_direction.dart';
@@ -24,20 +26,56 @@ class FlashcardsNotifier extends ChangeNotifier{
       resetSwipeCardTwo = false;
 
   List<Word> selectedWords= [];
+  List<Word> incorrectCards = [];
+
+  bool isFirstRound = true , isRoundCompleted = false , isSessionCompleted = false;
 
 
+  updateCardOutCome({required Word word ,required bool isCorrect}){
+    if(!isCorrect){
+       incorrectCards.add(word);
+    }
+    incorrectCards.forEach((element) {print(element.english);});
+    notifyListeners();
+  }
   generateAllSelectedWords(){
     selectedWords.clear();
-    selectedWords = words.where( (element) => element.topic == topic).toList();
+    isRoundCompleted = false;
+
+    if(isFirstRound){
+      selectedWords = words.where( (element) => element.topic == topic).toList();
+    }else{
+      selectedWords = incorrectCards.toList();
+      incorrectCards.clear();
+    }
 
   }
 
-  generateCurrentWords(){
+  reset(){
+
+    isRoundCompleted = false;
+    isFirstRound  =true;
+    isSessionCompleted = false;
+    notifyListeners();
+  }
+
+  generateCurrentWords(BuildContext context){
    if(selectedWords.isNotEmpty){
      final numbers =  Random().nextInt(selectedWords.length);
      word = selectedWords[numbers];
      selectedWords.removeAt(numbers);
    }else{
+
+     if(incorrectCards.isEmpty){
+       isSessionCompleted = true;
+     }
+     isRoundCompleted = true;
+     isFirstRound = false;
+
+     Future.delayed(Duration(microseconds: 500), () => showDialog(
+       context: context,
+       builder: (context) => const ResultBox(),
+     ));
      print("all selected word empty");
    }
    
@@ -92,6 +130,8 @@ class FlashcardsNotifier extends ChangeNotifier{
      swipeDirection = direction;
      swipeCardTwo = true;
      resetFlipCard2 = false;
+
+     updateCardOutCome(word: wordTwo, isCorrect: direction == SlideDirection.leftAway);
 
      print(direction);
      notifyListeners();

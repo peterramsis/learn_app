@@ -35,7 +35,7 @@ class _CardOneState extends State<CardOne> {
           child: SlideAnimation(
             animationDuration: 600,
             animationDaly: 600,
-            animate: notifier.slideCareOne,
+            animate: notifier.slideCareOne && !notifier.isRoundCompleted,
             direction: SlideDirection.upIn,
             reset: notifier.resetSlideCardOne,
             animationCompleted: (){

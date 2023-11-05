@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset("assets/images/Settings.png"),
             ),
             const Text(
-              'Chinese Flashcards\n中文学习卡',
+              'Learn Chinese',
               textAlign: TextAlign.center,
             ),
             SizedBox(

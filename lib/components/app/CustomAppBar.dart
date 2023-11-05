@@ -18,7 +18,10 @@ class CustomAppBar extends StatelessWidget {
         ),
         leading: Image.asset("assets/images/${notifier.topic}.png"),
         actions: [
-          IconButton(onPressed: ()=>Navigator.of(context).pushAndRemoveUntil(  MaterialPageRoute(builder: (context)=> const HomePage()) , (route) => false), icon: const Icon(Icons.close))
+          IconButton(onPressed: (){
+            notifier.reset();
+            Navigator.of(context).pushAndRemoveUntil(  MaterialPageRoute(builder: (context)=> const HomePage()) , (route) => false);
+            }, icon: const Icon(Icons.close))
         ],
       );
   });

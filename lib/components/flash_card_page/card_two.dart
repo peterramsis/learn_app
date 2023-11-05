@@ -28,14 +28,14 @@ class _CardTwoState extends State<CardTwo> {
               notifier.runSwipeCardTwo(direction: SlideDirection.leftAway);
               notifier.runSlideCardOne();
               notifier.setTouches(ignore: true);
-              notifier.generateCurrentWords();
+              notifier.generateCurrentWords(context);
           }
 
           if(details.primaryVelocity! < -100){
             notifier.runSwipeCardTwo(direction: SlideDirection.rightAway);
             notifier.runSlideCardOne();
             notifier.setTouches(ignore: true);
-            notifier.generateCurrentWords();
+            notifier.generateCurrentWords(context);
           }
 
 
