@@ -27,4 +27,32 @@ final appTheme = ThemeData(
     ),
     color: kRed,
   ),
+  dialogTheme: DialogTheme(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(kCircularBorderRadius),
+    ),
+    backgroundColor: kRed,
+    contentTextStyle: TextStyle(
+        fontFamily: GoogleFonts.notoSans().fontFamily,
+        fontSize: 20,
+        color: Colors.white),
+    titleTextStyle: TextStyle(
+        fontFamily: GoogleFonts.notoSans().fontFamily,
+        fontSize: 20,
+        color: Colors.white),
+  ),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(kCircularBorderRadius),
+            side: const BorderSide(
+              color: Colors.white,
+            ),
+          ),
+          primary: kYellow,
+          textStyle: TextStyle(
+            fontFamily: GoogleFonts.notoSans().fontFamily,
+            color: Colors.white,
+            fontSize: 18,
+          ))),
 );

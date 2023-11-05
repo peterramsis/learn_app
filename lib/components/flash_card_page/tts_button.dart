@@ -60,6 +60,7 @@ class _TtsButtonState extends State<TtsButton> {
     await _tts.setSpeechRate(0.5);
     await _tts.setVolume(1.0);
     await _tts.setPitch(0.5);
+
   }
   _runTts({required String text}) async {
     try{

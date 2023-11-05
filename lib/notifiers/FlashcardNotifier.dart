@@ -29,16 +29,29 @@ class FlashcardsNotifier extends ChangeNotifier{
   List<Word> incorrectCards = [];
 
   bool isFirstRound = true , isRoundCompleted = false , isSessionCompleted = false;
+  int roundTally = 0,
+      cardTally = 0,
+      correctTally = 0,
+      incorrectTally = 0,
+      correctPercentage = 0;
 
+  calculateCorrectPercentage(){
+    final percentage = correctTally / cardTally;
+    correctPercentage = (percentage * 100).round();
+  }
 
   updateCardOutCome({required Word word ,required bool isCorrect}){
     if(!isCorrect){
        incorrectCards.add(word);
+       incorrectTally++;
+    }else{
+      correctTally++;
     }
     incorrectCards.forEach((element) {print(element.english);});
     notifyListeners();
   }
   generateAllSelectedWords(){
+
     selectedWords.clear();
     isRoundCompleted = false;
 
@@ -48,6 +61,10 @@ class FlashcardsNotifier extends ChangeNotifier{
       selectedWords = incorrectCards.toList();
       incorrectCards.clear();
     }
+    roundTally++;
+    cardTally = selectedWords.length;
+    correctTally = 0;
+    incorrectTally = 0;
 
   }
 
@@ -56,7 +73,9 @@ class FlashcardsNotifier extends ChangeNotifier{
     isRoundCompleted = false;
     isFirstRound  =true;
     isSessionCompleted = false;
+    roundTally = 0;
     notifyListeners();
+
   }
 
   generateCurrentWords(BuildContext context){
@@ -71,11 +90,14 @@ class FlashcardsNotifier extends ChangeNotifier{
      }
      isRoundCompleted = true;
      isFirstRound = false;
+     calculateCorrectPercentage();
 
      Future.delayed(Duration(microseconds: 500), () => showDialog(
        context: context,
        builder: (context) => const ResultBox(),
      ));
+
+
      print("all selected word empty");
    }
    
